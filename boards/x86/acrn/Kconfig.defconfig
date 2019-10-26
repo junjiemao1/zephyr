@@ -9,4 +9,7 @@ if BOARD_ACRN
 config BOARD
 	default "acrn"
 
+config JAILHOUSE_X2APIC
+	bool "access APIC in x2APIC mode"
+
 endif # BOARD_ACRN
