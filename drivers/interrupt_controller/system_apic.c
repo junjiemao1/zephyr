@@ -51,11 +51,9 @@
 void __irq_controller_irq_config(unsigned int vector, unsigned int irq,
 				 u32_t flags)
 {
-	__ASSERT(irq <= HARDWARE_IRQ_LIMIT, "invalid irq line");
-
 	if (IS_IOAPIC_IRQ(irq)) {
 		z_ioapic_irq_set(irq, vector, flags);
-	} else {
+	} else if (irq <= HARDWARE_IRQ_LIMIT) {
 		z_loapic_int_vec_set(irq - LOAPIC_IRQ_BASE, vector);
 	}
 }
@@ -105,4 +103,3 @@ void z_arch_irq_disable(unsigned int irq)
 		z_loapic_irq_disable(irq - LOAPIC_IRQ_BASE);
 	}
 }
-
